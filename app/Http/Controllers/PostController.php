@@ -41,9 +41,9 @@ class PostController extends Controller
 
     public function update(Request $request, $id)
     {
-        request()->validate([
-            'title' => 'required',
-            'content' => 'required'
+        $request->validate([
+            'title' => 'bail|required|unique:posts|max:255',
+            'content' => 'required',
         ]);
 
         Post::find($id)->update([

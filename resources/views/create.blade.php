@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <h1>Создать пост</h1>
-            <form action="{{ route('post.edit') }}" class="form" method="post">
+            <form action="{{ route('store') }}" class="form" method="post">
                 {{ csrf_field() }}
                 <div class="form-group @if($errors->has('title')) has-error @endif">
                     <label>Заголовок</label>
