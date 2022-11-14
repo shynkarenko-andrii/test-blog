@@ -22,20 +22,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//Route::get('/post', [Controllers\Post::class, 'index']);
 Route::get('/', [Controllers\PostController::class, 'index'])->name('index');
 Route::get('/posts/{id}', [Controllers\PostController::class, 'show'])->middleware('auth')->name('post.show');
 Route::get('/posts/{id}/edit', [Controllers\PostController::class, 'edit'])->middleware('auth')->name('post.edit');
+Route::post('/post{id}/update', [Controllers\PostController::class, 'update'])->middleware('auth')->name('update');
 Route::get('/posts/{id}/delete', [Controllers\PostController::class, 'delete'])->middleware('auth')->name('post.delete');
-
-
-//Route::patch('/editpost/{id}', [Controllers\PostController::class, 'update'])->name('edit');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/create', [Controllers\PostController::class, 'create'])->name('create');

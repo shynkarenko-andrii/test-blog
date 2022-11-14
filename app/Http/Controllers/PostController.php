@@ -22,6 +22,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
+
         return view('show', ['post' => $post]);
     }
 
@@ -31,9 +32,27 @@ class PostController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function edit($id)
     {
-        //
+        $post = Post::find($id);
+
+        return view('edit', ['post' => $post]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        request()->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        Post::find($id)->update([
+            'title' => request('title'),
+            'content' => request('content')
+        ]);
+
+        $posts = Post::all();
+        return view('home', ['posts' => $posts]);
     }
 
     /**
@@ -66,24 +85,16 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function delete($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+
+        return redirect()->route('index');
     }
 }

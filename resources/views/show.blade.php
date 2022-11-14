@@ -7,8 +7,8 @@
                 <div class="card">
                     <div class="card-header">{{ $post->title }}</div>
                     <div class="card-header">
-                        <a class="btn btn-primary" href="{{route('post.edit', ['id' => $post->id])}}" role="button">Edit</a>
-                        <a class="btn btn-primary" href="{{route('post.delete', ['id' => $post->id])}}" role="button">Delete</a>
+                        <a class="btn btn-primary" href="{{route('post.edit', ['id' => $post->id])}}" role="button">Редактировать</a>
+                        <a class="btn btn-danger" href="{{route('post.delete', ['id' => $post->id])}}" role="button">Удалить</a>
                     </div>
 
                     <div class="card-body">
