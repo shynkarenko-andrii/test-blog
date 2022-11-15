@@ -1,3 +1,6 @@
+@php
+use Itstructure\LaRbac\Models\Permission;
+@endphp
 @extends('layouts.app')
 
 @section('content')
@@ -6,9 +9,11 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Posts') }}</div>
+                    @can(Permission::ADMINISTRATE_PERMISSION)
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{route('create')}}" role="button">Создать пост</a>
                     </div>
+                    @endcan
                     <div class="card-body">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">

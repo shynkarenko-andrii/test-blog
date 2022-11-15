@@ -1,3 +1,6 @@
+@php
+    use Itstructure\LaRbac\Models\Permission;
+@endphp
 @extends('layouts.app')
 
 @section('content')
@@ -6,11 +9,13 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ $post->title }}</div>
-                    <div class="card-header">
-                        <a class="btn btn-primary" href="{{route('post.edit', ['id' => $post->id])}}" role="button">Редактировать</a>
-                        <a class="btn btn-danger" href="{{route('post.delete', ['id' => $post->id])}}" role="button">Удалить</a>
-                    </div>
-
+                    @can(Permission::ADMINISTRATE_PERMISSION)
+                        <div class="card-header">
+                            <a class="btn btn-primary" href="{{route('post.edit', ['id' => $post->id])}}" role="button">Редактировать</a>
+                            <a class="btn btn-danger" href="{{route('post.delete', ['id' => $post->id])}}"
+                               role="button">Удалить</a>
+                        </div>
+                    @endcan
                     <div class="card-body">
                         <p>{{$post->content}}</p>
                     </div>
