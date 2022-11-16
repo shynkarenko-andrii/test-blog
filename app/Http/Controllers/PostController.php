@@ -4,12 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Redis;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = unserialize(Redis::get('posts'));
+
+        if (!$posts) {
+            $posts = Post::all();
+            Redis::set('posts', serialize($posts));
+        }
+
         return view('home', ['posts' => $posts]);
     }
 
@@ -51,8 +58,7 @@ class PostController extends Controller
             'content' => request('content')
         ]);
 
-        $posts = Post::all();
-        return view('home', ['posts' => $posts]);
+        return redirect()->route('index');
     }
 
     /**
