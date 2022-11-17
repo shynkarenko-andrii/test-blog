@@ -7,7 +7,11 @@
     <div class="container">
         <div class="row">
             <h1>Создать пост</h1>
-            <form action="{{ route('store') }}" class="form" method="post">
+            <div id="print-error-msg">
+                <ul>
+                </ul>
+            </div>
+            <form action="{{ route('store') }}" class="form" method="post" id="form_add_post">
                 {{ csrf_field() }}
                 <div class="form-group @if($errors->has('title')) has-error @endif">
                     <label>Заголовок</label>
@@ -20,7 +24,7 @@
                     <span class="text-danger">{{ $errors->first('content') }}</span>
                 </div>
                 <div class="form-group">
-                    <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-primary" id="btnSubmit">Save</button>
                 </div>
             </form>
         </div>

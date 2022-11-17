@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Redis;
 
 class PostController extends Controller
@@ -80,15 +81,18 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'bail|required|unique:posts|max:255',
-            'content' => 'required',
+            'title' => 'string|required|min:3|max:255',
+            'content' => 'string|required|min:3',
         ]);
 
         $formData = $request->all();
         Post::create($formData);
+        $data = [
+            'success' => true,
+            'redirect' => route('index'),
+        ];
 
-        return redirect()->route('index');
-    }
+        return response()->json($data);    }
 
     /**
      * Remove the specified resource from storage.
